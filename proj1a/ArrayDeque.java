@@ -13,13 +13,16 @@ public class ArrayDeque<T> {
     }
 
     /** Resizes the underlying array to the target capacity.
-     * Directly copy the array values to the new array if the first item if in the front of the last item.
+     *
+     * Directly copy the array values to the new array
+     * if the first item is in the front of the last item.
+     *
      * Otherwise reorder the items in the new array so that first item is in the front
      * if the last item is in front of the first item. */
     private void resize(int capacity) {
         T[] a = (T[]) new Object[capacity];
-        int indexFirst = indexPlus(nextFirst,1);
-        int indexLast = indexMinus(nextLast,1);
+        int indexFirst = indexPlus(nextFirst, 1);
+        int indexLast = indexMinus(nextLast, 1);
         if (indexFirst <= indexLast) {
             System.arraycopy(items, indexFirst, a, 0, size);
         } else {
@@ -34,7 +37,7 @@ public class ArrayDeque<T> {
 
     /** Increase index by i. */
     private int indexPlus(int index, int i) {
-        if (index + i >= items.length){
+        if (index + i >= items.length) {
             index = index + i - items.length;
             return index;
         }
@@ -44,7 +47,7 @@ public class ArrayDeque<T> {
 
     /** Decrease index by i. */
     private int indexMinus(int index, int i) {
-        if (index - i < 0){
+        if (index - i < 0) {
             index = items.length + (index - i);
             return index;
         }
@@ -105,10 +108,10 @@ public class ArrayDeque<T> {
     }
 
     public T get(int i) {
-        if (i >= size || i <0) {
+        if (i >= size || i < 0) {
             return null;
         }
-        i = indexPlus(nextFirst, i+1);
+        i = indexPlus(nextFirst, i + 1);
         return items[i];
     }
 

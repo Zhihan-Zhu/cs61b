@@ -1,12 +1,10 @@
-import java.io.PrintStream;
-
 public class LinkedListDeque<T> {
     private class Node {
-        public T item;
-        public Node next;
-        public Node previous;
+        private T item;
+        private Node next;
+        private Node previous;
 
-        public Node(Node p, T i, Node n ) {
+        public Node(Node p, T i, Node n) {
             item = i;
             next = n;
             previous = p;
@@ -61,7 +59,7 @@ public class LinkedListDeque<T> {
     }
 
     public T get(int i) {
-        if (i >= size || i <0) {
+        if (i >= size || i < 0) {
             return null;
         }
         Node p = sentinel;
@@ -82,7 +80,7 @@ public class LinkedListDeque<T> {
         if (i == 0) {
             return current.item;
         }
-        return getRecursiveHelper(current.next, i-1);
+        return getRecursiveHelper(current.next, i - 1);
     }
 
     public void printDeque() {
