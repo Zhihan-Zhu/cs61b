@@ -21,7 +21,7 @@ public class ArrayDeque<T> {
         int indexFirst = indexPlus(nextFirst,1);
         int indexLast = indexMinus(nextLast,1);
         if (indexFirst <= indexLast) {
-            System.arraycopy(items, 0, a, 0, size);
+            System.arraycopy(items, indexFirst, a, 0, size);
         } else {
             System.arraycopy(items, indexFirst, a, 0, items.length - indexFirst);
             System.arraycopy(items, 0, a, items.length - indexFirst,
@@ -73,6 +73,9 @@ public class ArrayDeque<T> {
     }
 
     public T removeFirst() {
+        if (size == 0) {
+            return null;
+        }
         int indexFirst = indexPlus(nextFirst, 1);
         T removeItem = items[indexFirst];
         items[indexFirst] = null;
@@ -86,6 +89,9 @@ public class ArrayDeque<T> {
     }
 
     public T removeLast() {
+        if (size == 0) {
+            return null;
+        }
         int indexLast = indexMinus(nextLast, 1);
         T removeItem = items[indexLast];
         items[indexLast] = null;
@@ -127,26 +133,45 @@ public class ArrayDeque<T> {
 //        ArrayDeque<Integer> A = new ArrayDeque<>();
 //        A.printDeque();
 //
-//        int i = 0;
-//        while (i < 16) {
-//            A.addLast(i+1);
-//            i += 1;
-//        }
-//        A.addFirst(0);
-//        A.addFirst(-1);
-//        System.out.println(A.get(17));
-//        System.out.println(A.size());
+//        A.addLast(0);
+//        A.addFirst(1);
+//        System.out.println(A.removeLast());
+//        A.printDeque();
+//        A.addLast(3);
+//        A.addFirst(4);
+//        A.addLast(5);
+//        A.addFirst(6);
+//        A.addLast(7);
+//        A.addLast(8);
+//        A.printDeque();
 //
-//        int j = 0;
-//        while (j < 10) {
-//            A.removeLast();
-//            j += 1;
-//        }
-//        System.out.println(A.get(0));
-//        System.out.println(A.size());
+//        System.out.println(A.get(3));
+//        A.addFirst(11);
+//        A.addLast(12);
+//        A.printDeque();
 //
-//        A.removeLast();
-//        System.out.println(A.get(6));
-//        System.out.println(A.size());
+//        System.out.println(A.removeLast());
+//        System.out.println(A.removeFirst());
+//        A.addFirst(15);
+//        A.printDeque();
+//
+//        System.out.println(A.removeLast());
+//        System.out.println(A.removeLast());
+//        A.printDeque();
+//
+//        System.out.println(A.removeFirst());
+//        A.printDeque();
+//
+//        System.out.println(A.removeFirst());
+//        A.printDeque();
+//
+//        System.out.println(A.removeFirst());
+//        A.printDeque();
+//
+//        A.addFirst(21);
+//        A.printDeque();
+//        System.out.println(A.removeFirst());
+//        System.out.println(A.get(2));
+//        A.printDeque();
 //    }
 }
