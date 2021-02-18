@@ -58,18 +58,19 @@ public class Percolation {
         if (row == 0) {
             sites.union(index, virtualTop);
             sitesNoBottom.union(index, virtualTop);
-        } else if (row == N - 1) {
+        }
+        if (row == N - 1) {
             sites.union(index, virtualBottom);
         }
-        if (index % N != 0 && // site not on left edge
-                index - 1 >= 0 &&
-                openSites[index - 1]) {
+        if (index % N != 0 // site not on left edge
+                && index - 1 >= 0
+                && openSites[index - 1]) {
             sites.union(index - 1, index);
             sitesNoBottom.union(index - 1, index);
         }
-        if (index % N != N - 1 && // site not on right edge
-                index + 1 < N * N &&
-                openSites[index + 1]) {
+        if (index % N != N - 1 // site not on right edge
+                && index + 1 < N * N
+                && openSites[index + 1]) {
             sites.union(index + 1, index);
             sitesNoBottom.union(index + 1, index);
         }
@@ -116,15 +117,15 @@ public class Percolation {
     }
 
     // use for unit testing (not required)
-//    public static void main(String[] args) {
-//        Percolation p = new Percolation(5);
-//        p.open(2,4);
-//        p.open(3,4);
-//        p.open(1,4);
-//        p.open(1,3);
-//        p.open(0,3);
-//        System.out.println(p.isOpen(2,4));
-//        System.out.println(p.numberOfOpenSites());
-//        System.out.println(p.isFull(2,4));
-//    }
+    public static void main(String[] args) {
+        Percolation p = new Percolation(5);
+        p.open(2,4);
+        p.open(3,4);
+        p.open(1,4);
+        p.open(1,3);
+        p.open(0,3);
+        System.out.println(p.isOpen(2,4));
+        System.out.println(p.numberOfOpenSites());
+        System.out.println(p.isFull(2,4));
+    }
 }

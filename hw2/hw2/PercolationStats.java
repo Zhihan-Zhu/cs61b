@@ -55,10 +55,6 @@ public class PercolationStats {
         return mean() + 1.96 * stddev() / Math.sqrt(thresholds.length);
     }
 
-    public double[] getThresholds() {
-        return thresholds;
-    }
-
 //    public static void main(String[] args) {
 //        PercolationStats p = new PercolationStats(10, 30, new PercolationFactory());
 //        System.out.println(p.mean());
