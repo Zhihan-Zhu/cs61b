@@ -61,11 +61,15 @@ public class Percolation {
         } else if (row == N - 1) {
             sites.union(index, virtualBottom);
         }
-        if (index - 1 >= 0 && openSites[index - 1]) {
+        if (index % N != 0 && // site not on left edge
+                index - 1 >= 0 &&
+                openSites[index - 1]) {
             sites.union(index - 1, index);
             sitesNoBottom.union(index - 1, index);
         }
-        if (index + 1 < N * N && openSites[index + 1]) {
+        if (index % N != N - 1 && // site not on right edge
+                index + 1 < N * N &&
+                openSites[index + 1]) {
             sites.union(index + 1, index);
             sitesNoBottom.union(index + 1, index);
         }

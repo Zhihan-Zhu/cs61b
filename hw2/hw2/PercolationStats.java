@@ -3,7 +3,7 @@ package hw2;
 import edu.princeton.cs.introcs.StdRandom;
 import edu.princeton.cs.introcs.StdStats;
 
-import java.util.Arrays;
+//import java.util.Arrays;
 
 public class PercolationStats {
     private double[] thresholds;
