@@ -1,4 +1,5 @@
 package hw3.hash;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
 import edu.princeton.cs.algs4.StdDraw;
@@ -13,7 +14,7 @@ public class ComplexOomage implements Oomage {
     public int hashCode() {
         int total = 0;
         for (int x : params) {
-            total = total * 256;
+            total = total * 256; // will cause integer overflow, use a prime number such as 31 to fix this.
             total = total + x;
         }
         return total;
