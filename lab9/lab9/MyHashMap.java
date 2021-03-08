@@ -1,7 +1,8 @@
 package lab9;
 
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  *  A hash table-backed Map implementation. Provides amortized constant time
@@ -23,6 +24,11 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
 
     public MyHashMap() {
         buckets = new ArrayMap[DEFAULT_SIZE];
+        this.clear();
+    }
+
+    public MyHashMap(int n) {
+        buckets = new ArrayMap[n];
         this.clear();
     }
 
@@ -53,19 +59,44 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
      */
     @Override
     public V get(K key) {
-        throw new UnsupportedOperationException();
+        if (size == 0) {
+            return null;
+        }
+        ArrayMap<K, V> bucket = buckets[hash(key)];
+        return bucket.get(key);
+    }
+
+    /* resize the hash table to have the given number of buckets, */
+    /* rehashing all of the keys. */
+    private void resize(int n) {
+        MyHashMap<K, V> temp = new MyHashMap(n);
+        for (int i = 0; i < buckets.length; i += 1) {
+//            for (K key : buckets[i].keySet()) {
+            for (K key : buckets[i]) {  //use iterator in ArrayMap
+                temp.put(key, buckets[i].get(key));
+            }
+        }
+        this.buckets = temp.buckets;
+        this.size = temp.size;
     }
 
     /* Associates the specified value with the specified key in this map. */
     @Override
     public void put(K key, V value) {
-        throw new UnsupportedOperationException();
+        int i = hash(key);
+        if (!buckets[i].containsKey(key)) {
+            size += 1;
+        }
+        buckets[hash(key)].put(key, value);
+        if (loadFactor() > MAX_LF) {
+            resize(buckets.length * 2);
+        }
     }
 
     /* Returns the number of key-value mappings in this map. */
     @Override
     public int size() {
-        throw new UnsupportedOperationException();
+        return size;
     }
 
     //////////////// EVERYTHING BELOW THIS LINE IS OPTIONAL ////////////////
@@ -73,7 +104,13 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
     /* Returns a Set view of the keys contained in this map. */
     @Override
     public Set<K> keySet() {
-        throw new UnsupportedOperationException();
+        Set<K> keyset = new HashSet<>();
+        for (int i = 0; i < buckets.length; i += 1) {
+            for (K key : buckets[i]) {  //use iterator in ArrayMap
+                keyset.add(key);
+            }
+        }
+        return keyset;
     }
 
     /* Removes the mapping for the specified key from this map if exists.
@@ -94,6 +131,16 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
 
     @Override
     public Iterator<K> iterator() {
-        throw new UnsupportedOperationException();
+//        throw new UnsupportedOperationException();
+        return keySet().iterator();
     }
+
+//    public static void main(String[] args) {
+//        MyHashMap<String, Integer> studentIDs = new MyHashMap<>();
+//        studentIDs.put("sarah", 12345);
+//        studentIDs.put("alan", 345);
+//        for (String key : studentIDs) {
+//            System.out.println(key);
+//        }
+//    }
 }
